@@ -1,0 +1,8 @@
+.env
+key.env
+*.class
+*.java
+NEW
+det.py
+.vscode/
+__pycache__/
