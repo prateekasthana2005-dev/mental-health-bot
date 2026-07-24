@@ -26,7 +26,7 @@ st.title("🩺 MediMind Assistant")
 st.caption("Your compassionate companion for emotional well-being and health guidance.")
 
 st.info(
-    "⚠️ **Medical Disclaimer:** I am an AI-powered assistant, not a licensed doctor or psychiatrist. "
+    "⚠️ **Medical Disclaimer:** I am an AI-powered assistant made by Prateek Kumar Asthana of KIET , not a licensed doctor or psychiatrist. "
     "If you are experiencing a medical emergency, severe distress, or thoughts of self-harm, "
     "please contact local crisis helplines or seek immediate professional medical attention."
 )
