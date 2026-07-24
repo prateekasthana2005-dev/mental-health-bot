@@ -86,4 +86,4 @@ with gr.Blocks() as demo:
 
 # 4. Runtime Initialization with Forced Fresh Port Assignment
 if __name__ == "__main__":
-    demo.launch(theme=gr.themes.Soft(), server_port=7899, share=False)
+    demo.launch(share=True)
