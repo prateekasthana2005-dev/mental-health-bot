@@ -1,32 +1,33 @@
 import os
 import streamlit as st
-from google import genai
+import google.generativeai as genai
 
 st.set_page_config(page_title="Mental Health Support Bot", page_icon="🧠", layout="centered")
 
 st.title("🧠 Mental Health Support Bot")
 st.write("A safe space to share how you are feeling.")
 
-# API Key handling
+# API Key setup
 api_key = os.environ.get("GEMINI_API_KEY") or st.secrets.get("GEMINI_API_KEY")
 
 if not api_key:
-    st.error("⚠️ GEMINI_API_KEY missing! Please add it in Streamlit App Settings -> Secrets.")
+    st.error("⚠️ GEMINI_API_KEY missing! Add it in Streamlit App Settings -> Secrets.")
     st.stop()
 
-# Initialize Gemini Client
-client = genai.Client(api_key=api_key)
+# Configure GenAI
+genai.configure(api_key=api_key)
+model = genai.GenerativeModel("gemini-1.5-flash")
 
-# Initialize Session Chat History
+# Session Chat History
 if "messages" not in st.session_state:
     st.session_state.messages = []
 
-# Display Chat History
+# Display Chat
 for message in st.session_state.messages:
     with st.chat_message(message["role"]):
         st.markdown(message["content"])
 
-# User Input Box
+# User Input
 if prompt := st.chat_input("How are you feeling today?"):
     st.session_state.messages.append({"role": "user", "content": prompt})
     with st.chat_message("user"):
@@ -35,10 +36,7 @@ if prompt := st.chat_input("How are you feeling today?"):
     with st.chat_message("assistant"):
         with st.spinner("Thinking..."):
             try:
-                response = client.models.generate_content(
-                    model="gemini-2.5-flash",
-                    contents=prompt
-                )
+                response = model.generate_content(prompt)
                 st.markdown(response.text)
                 st.session_state.messages.append({"role": "assistant", "content": response.text})
             except Exception as e:
